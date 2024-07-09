@@ -22,6 +22,7 @@ export type TProduct = {
   images: string[];
   category: TCategory;
   stock: number;
+  isDeleted: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 };
