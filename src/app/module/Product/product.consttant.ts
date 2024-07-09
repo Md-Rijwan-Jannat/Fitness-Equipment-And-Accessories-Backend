@@ -1,0 +1,17 @@
+export const Categories: string[] = [
+  "Cardio",
+  "Strength Training",
+  "Yoga & Pilates",
+  "Accessories",
+  "Outdoor & Adventure",
+  "Recovery & Wellness",
+  "Apparel",
+  "Nutrition & Supplements",
+  "Home Gym Equipment",
+  "Fitness Technology",
+  "Functional Training",
+  "Group Fitness",
+  "Weight Management",
+  "Flexibility & Mobility",
+  "Aquatic Fitness",
+];
