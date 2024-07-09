@@ -1,4 +1,4 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from "express";
 
 // Todo without further modification you can use the code. If you want to customize the error message then you can do so. If you use it you can avoid the use of try catch block. So your code will be more cleaner. You can read this blog to understand the code https://dev.to/md_enayeturrahman_2560e3/simplifying-error-handling-in-express-controllers-introducing-catchasync-utility-function-2f3l
 
