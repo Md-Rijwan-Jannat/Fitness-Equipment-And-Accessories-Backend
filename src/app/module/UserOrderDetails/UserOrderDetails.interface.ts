@@ -1,12 +1,15 @@
 import { ObjectId } from "mongoose";
 
-// UserOrderDetails for delivery
-export type TUserOrderDetails = {
+export type TProductOrder = {
   product: ObjectId;
-  price?: number;
+  quantity: number;
+};
+
+export type TUserOrderDetails = {
+  paymentMethod: string;
+  products: TProductOrder[];
   name: string;
   email: string;
   phone: string;
   address: string;
-  quantity: number;
 };

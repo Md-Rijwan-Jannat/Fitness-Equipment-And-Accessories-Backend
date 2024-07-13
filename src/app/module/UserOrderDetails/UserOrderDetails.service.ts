@@ -9,40 +9,37 @@ import mongoose from "mongoose";
 const createUserOrderDetailsInToDB = async (
   payload: TUserOrderDetails,
 ): Promise<TUserOrderDetails> => {
-  const { product } = payload;
-
-  console.log("Checking if product exists:", product);
-  const isProductExist = await Product.findById(product);
-
-  if (!isProductExist) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Product not found");
-  }
-
-  if (isProductExist.stock <= 0) {
-    throw new AppError(httpStatus.BAD_REQUEST, "This product is out of stock");
-  }
-
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
-    const totalPrice = isProductExist.price * payload.quantity;
-    await Product.findByIdAndUpdate(
-      product,
-      {
-        $inc: { stock: -payload.quantity },
-      },
-      {
-        session,
-      },
-    );
 
-    const userOrderDetailsData = {
-      ...payload,
-      price: totalPrice,
-    };
+    for (const productOrder of payload.products) {
+      const isProductExist = await Product.findById(productOrder.product);
 
-    const result = await UserOrderDetails.create([userOrderDetailsData], {
+      if (!isProductExist) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Product not found");
+      }
+
+      if (isProductExist.stock <= 0) {
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          "This product is out of stock",
+        );
+      }
+
+      await Product.findByIdAndUpdate(
+        productOrder.product,
+        {
+          $inc: { stock: -productOrder.quantity },
+        },
+        {
+          session,
+        },
+      );
+    }
+
+    const result = await UserOrderDetails.create([payload], {
       session,
     });
 

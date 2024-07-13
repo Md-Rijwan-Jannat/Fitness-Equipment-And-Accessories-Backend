@@ -11,7 +11,7 @@ const createUserOrderDetails = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: "Order confirm successfully",
+    message: "Order confirmed successfully",
     data: result,
   });
 });
