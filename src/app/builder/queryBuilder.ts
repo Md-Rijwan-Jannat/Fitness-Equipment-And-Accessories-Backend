@@ -33,9 +33,8 @@ class QueryBuilder<T> {
 
     // Filter by categories
     if (queryObj.categories) {
-      const categories = Array.isArray(queryObj.categories)
-        ? queryObj.categories
-        : [queryObj.categories];
+      const categoriesString = queryObj.categories as string;
+      const categories = categoriesString.split(",");
       this.modelQuery = this.modelQuery.find({
         category: { $in: categories },
       } as FilterQuery<T>);
@@ -73,7 +72,7 @@ class QueryBuilder<T> {
 
   // Paginate method - 4
   paginate() {
-    const limit = (this.query?.limit as number) || 10;
+    const limit = (this.query?.limit as number) || 100;
     const page = (this.query?.page as number) || 1;
     const skip = (page - 1) * limit;
 

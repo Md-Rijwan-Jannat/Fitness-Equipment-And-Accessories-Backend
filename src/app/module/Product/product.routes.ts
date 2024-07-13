@@ -27,4 +27,10 @@ router.put(
 
 router.delete("/:id", ProductController.deleteSingleProduct);
 
+router.patch(
+  "/update-products-quantities",
+  validateRequest(ProductValidation.updateProductsQuantitiesValidationSchema),
+  ProductController.updateProductsQuantities,
+);
+
 export const ProductRoutes = router;

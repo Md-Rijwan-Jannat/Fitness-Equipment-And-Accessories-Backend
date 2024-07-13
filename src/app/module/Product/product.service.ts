@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import QueryBuilder from "../../builder/queryBuilder";
 import { TProduct } from "./product.interface";
 import Product from "./product.model";
@@ -36,7 +37,7 @@ const updateSingleProductInToDB = async (
   if (payload.images) {
     const product = await Product.findById(id);
     if (product) {
-      // Merge existing images with new images, avoiding duplicates - cool
+      // Merge existing images with new images, avoiding duplicates
       product.images = [...new Set([...product.images, ...payload.images])];
       payload.images = product.images;
     }
@@ -70,10 +71,34 @@ const deleteSingleProductFromDB = async (
   return result;
 };
 
+// Update products quantities Service
+const updateProductsQuantitiesInDB = async (
+  products: { id: string; quantity: number }[],
+): Promise<(TProduct | null)[]> => {
+  const updatedProducts = await Promise.all(
+    products.map(async (product) => {
+      const { id, quantity } = product;
+      const result = await Product.findByIdAndUpdate(
+        id,
+        {
+          $inc: { stock: -quantity },
+        },
+        {
+          new: true,
+        },
+      );
+      return result;
+    }),
+  );
+  console.log("products=>", products);
+  return updatedProducts;
+};
+
 export const ProductService = {
   createProductInToDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateSingleProductInToDB,
   deleteSingleProductFromDB,
+  updateProductsQuantitiesInDB,
 };

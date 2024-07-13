@@ -16,6 +16,41 @@ const createUserOrderDetails = catchAsync(async (req, res) => {
   });
 });
 
-const UserOrderDetailsController = {
+// Get all user order details
+const getAllUserOrderDetails = catchAsync(async (req, res) => {
+  const result = await UserOrderDetailsServices.getAllUserOrderDetailsFromDB();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Get all user order details successfully",
+    data: result,
+  });
+});
+
+// Get single user order details
+const getSingleUserOrderDetails = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result =
+    await UserOrderDetailsServices.getSingleUserOrderDetailsFromDB(id);
+  if (!result) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "User order details not found",
+      data: null,
+    });
+  } else {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Get user order details successfully",
+      data: result,
+    });
+  }
+});
+
+export const UserOrderDetailsController = {
   createUserOrderDetails,
+  getAllUserOrderDetails,
+  getSingleUserOrderDetails,
 };

@@ -1,16 +1,25 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import { TUserOrderDetails } from "./UserOrderDetails.interface";
 
 export const userOrderDetailsSchema = new Schema<TUserOrderDetails>(
   {
+    product: {
+      type: Types.ObjectId,
+      required: [true, "Product ID is required"],
+      trim: true,
+    },
     name: {
       type: String,
       required: [true, "User name is required"],
       trim: true,
     },
+    price: {
+      type: Number,
+      default: 0,
+      trim: true,
+    },
     email: {
       type: String,
-      unique: true,
       required: [true, "User email is required"],
       trim: true,
     },
@@ -22,6 +31,11 @@ export const userOrderDetailsSchema = new Schema<TUserOrderDetails>(
     address: {
       type: String,
       required: [true, "User address is required"],
+      trim: true,
+    },
+    quantity: {
+      type: Number,
+      required: [true, "Product quantity is required"],
       trim: true,
     },
   },

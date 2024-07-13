@@ -1,19 +1,19 @@
 export type TCategory =
   | "Cardio"
-  | "Strength Training"
-  | "Yoga & Pilates"
+  | "StrengthTraining"
+  | "Yoga&Pilates"
   | "Accessories"
-  | "Outdoor & Adventure"
-  | "Recovery & Wellness"
+  | "Outdoor&Adventure"
+  | "Recovery&Wellness"
   | "Apparel"
-  | "Nutrition & Supplements"
-  | "Home Gym Equipment"
-  | "Fitness Technology"
-  | "Functional Training"
-  | "Group Fitness"
-  | "Weight Management"
-  | "Flexibility & Mobility"
-  | "Aquatic Fitness";
+  | "Nutrition&Supplements"
+  | "HomeGymEquipment"
+  | "FitnessTechnology"
+  | "FunctionalTraining"
+  | "GroupFitness"
+  | "WeightManagement"
+  | "Flexibility&Mobility"
+  | "AquaticFitness";
 
 export type TProduct = {
   name: string;

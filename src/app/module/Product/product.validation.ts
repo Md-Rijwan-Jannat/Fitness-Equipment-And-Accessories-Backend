@@ -5,9 +5,10 @@ import { Categories } from "./product.constants";
 export const createProductValidationSchema = z.object({
   body: z.object({
     name: z.string().nonempty({ message: "Product name is required" }),
-    price: z
-      .number()
-      .positive({ message: "Product price must be greater than 0" }),
+    price: z.number({
+      required_error: "Product price is required",
+      invalid_type_error: "Product price must be a number",
+    }),
     description: z
       .string()
       .nonempty({ message: "Product description is required" }),
@@ -24,7 +25,7 @@ export const createProductValidationSchema = z.object({
   }),
 });
 
-const getAllProductValidationSchema = z.object({
+export const getAllProductValidationSchema = z.object({
   searchTerm: z.string().optional(),
   categories: z.array(z.string()).optional(),
   minPrice: z.number().positive().optional(),
@@ -33,12 +34,24 @@ const getAllProductValidationSchema = z.object({
   limit: z.number().positive().optional(),
 });
 
-const updateProductValidationSchema = z.object({
+export const updateProductValidationSchema = z.object({
   body: createProductValidationSchema.partial(),
+});
+
+export const updateProductsQuantitiesValidationSchema = z.object({
+  body: z.object({
+    products: z.array(
+      z.object({
+        id: z.string().optional(),
+        quantity: z.number().int().positive(),
+      }),
+    ),
+  }),
 });
 
 export const ProductValidation = {
   createProductValidationSchema,
   updateProductValidationSchema,
   getAllProductValidationSchema,
+  updateProductsQuantitiesValidationSchema,
 };

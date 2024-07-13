@@ -1,10 +1,11 @@
+import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { ProductService } from "./product.service";
 
 // Create a new product
-const createProduct = catchAsync(async (req, res) => {
+const createProduct = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.createProductInToDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -15,7 +16,7 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 // Get all products
-const getAllProducts = catchAsync(async (req, res) => {
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.getAllProductsFromDB(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -26,9 +27,18 @@ const getAllProducts = catchAsync(async (req, res) => {
 });
 
 // Get single product
-const getSingleProduct = catchAsync(async (req, res) => {
+const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await ProductService.getSingleProductFromDB(id);
+  if (!result) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Product not found",
+      data: null,
+    });
+    return;
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -38,9 +48,18 @@ const getSingleProduct = catchAsync(async (req, res) => {
 });
 
 // Update single product
-const updateSingleProduct = catchAsync(async (req, res) => {
+const updateSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await ProductService.updateSingleProductInToDB(id, req.body);
+  if (!result) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Product not found",
+      data: null,
+    });
+    return;
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -50,9 +69,18 @@ const updateSingleProduct = catchAsync(async (req, res) => {
 });
 
 // Delete single product
-const deleteSingleProduct = catchAsync(async (req, res) => {
+const deleteSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await ProductService.deleteSingleProductFromDB(id);
+  if (!result) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: "Product not found",
+      data: null,
+    });
+    return;
+  }
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -61,10 +89,26 @@ const deleteSingleProduct = catchAsync(async (req, res) => {
   });
 });
 
+// Update multiple products quantities
+const updateProductsQuantities = catchAsync(
+  async (req: Request, res: Response) => {
+    const { products } = req.body;
+    const result = await ProductService.updateProductsQuantitiesInDB(products);
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Products quantities updated successfully",
+      data: result,
+    });
+  },
+);
+
 export const ProductController = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateSingleProduct,
   deleteSingleProduct,
+  updateProductsQuantities,
 };
