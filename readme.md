@@ -45,12 +45,13 @@ We're developing a comprehensive e-commerce website for fitness equipment using 
    Create a .env file in the root directory and add the following:
    ```
 
-.env
+3. env:
 
 ```bash
-NODE_ENV ='development'
-PORT=5000
-database_url=mongodb://localhost:27017/fitness-equipment-and-accessories
+ .env
+ NODE_ENV ='development'
+ PORT=5000
+ database_url=mongodb://localhost:27017/fitness-equipment-and-accessories
 ```
 
 ```bash
@@ -66,12 +67,13 @@ http://localhost:5000
 - POST /api/v1/products/create-product: Create single product.
 - GET /api/v1/products: Retrieve all products.
 - GET /api/v1/products/:id: Retrieve a single product by ID.
-- DELETE /api/v1/products/:id: Add a product to the cart.
+- DELETE /api/v1/products/:id: Delete product form db.
 - PUT /api/v1/products/:id
-  : Update the quantity of a product in the cart.
-- DELETE /api/v1/orders/create-user-order-details
-  : Remove a product from the cart.
-- POST /api/v1/checkout: Process checkout and payment.
+  : Update product.
+- POST /api/v1/orders/create-user-order-details
+  : Create user order details.
+- GRT /api/v1/orders/: Get All orders.
+- GRT /api/v1/orders/:id: Get single orders.
 
 ## Contribution
 
@@ -80,7 +82,3 @@ Feel free to contribute by creating pull requests. For major changes, please ope
 ## License
 
 This project is licensed under the MIT License.
-
-```
-
-```
