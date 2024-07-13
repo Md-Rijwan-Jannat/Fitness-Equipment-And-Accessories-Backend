@@ -55,7 +55,7 @@ We're developing a comprehensive e-commerce website for fitness equipment using 
 ```
 
 ```bash
-npm start:dev
+yarn start:dev
 The backend server will be running on:
 
 ``bash
