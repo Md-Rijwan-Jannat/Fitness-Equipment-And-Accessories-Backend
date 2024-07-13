@@ -1,6 +1,5 @@
 ### README for Backend
 
-````markdown
 # Fitness Equipment and Accessories - Backend
 
 ## Live link
@@ -45,7 +44,6 @@ We're developing a comprehensive e-commerce website for fitness equipment using 
    Set up environment variables:
    Create a .env file in the root directory and add the following:
    ```
-````
 
 .env
 
@@ -68,10 +66,10 @@ http://localhost:5000
 - POST /api/v1/products/create-product: Create single product.
 - GET /api/v1/products: Retrieve all products.
 - GET /api/v1/products/:id: Retrieve a single product by ID.
-- POST /api/v1/cart: Add a product to the cart.
-- PUT /api/v1/cart/
+- DELETE /api/v1/products/:id: Add a product to the cart.
+- PUT /api/v1/products/:id
   : Update the quantity of a product in the cart.
-- DELETE /api/v1/cart/
+- DELETE /api/v1/orders/create-user-order-details
   : Remove a product from the cart.
 - POST /api/v1/checkout: Process checkout and payment.
 
@@ -82,3 +80,7 @@ Feel free to contribute by creating pull requests. For major changes, please ope
 ## License
 
 This project is licensed under the MIT License.
+
+```
+
+```
